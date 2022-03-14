@@ -1,9 +1,7 @@
 # ubisecure_project (backend)
 
 ## ToDo:
-### Userauthentication:
-    - login + register
-### Testing:
-    - testing login + registration
-
-Also, the frontend and train location data has to be done.
+- documentation
+- testing login + registration
+- finalizing
+(- something related to fetch and showing the train information)

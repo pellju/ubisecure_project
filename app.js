@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-//const cors = require('cors')
+const cors = require('cors')
 require('dotenv').config()
 
 const userHandling = require('./controllers/userhandling')
@@ -9,7 +9,7 @@ const userHandling = require('./controllers/userhandling')
 mongoose.connect(process.env.mongodbAddr).then(() => console.log('Connected to mongodb'))
     .catch(e => console.log('Error: ', e))
 
-//app.use(cors())
+app.use(cors())
 app.use(express.json())
 app.use('/api', userHandling)
 

@@ -43,11 +43,10 @@ router.post('/register', async (req, res) => {
 router.post('/login', async( req,res) => {
     const body = req.body
     const userChecking = await User.findOne({ username: body.username })
-
-    if (userChecking === undefined || body.password === undefined) {
+    if (userChecking === undefined || body.password === undefined || body.password === '' || userChecking === null) {
         return res.status(400).send({ error: 'Undefined username or password' })
     } else {
-        const isPasswordCorrect = bcrypt.compare(body.password, userChecking.hashedPassword)
+        const isPasswordCorrect = await bcrypt.compare(body.password, userChecking.hashedPassword)
         if (!isPasswordCorrect) {
             return res.status(401).send({ error: 'Incorrect username or password' })
         }
