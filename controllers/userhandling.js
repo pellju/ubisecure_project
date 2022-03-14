@@ -13,14 +13,13 @@ const saltRounds = 10
 //Function for registering an user
 router.post('/register', async (req, res) => {
     const body = req.body
-
     //Checking that password, username and name meets given requirements (exists and length is at least 1)
     if (body.password === undefined || body.username === undefined || body.name === undefined || body.email === undefined) {
         return res.status(400).send({ error: 'Username or password or name not defined'})
-    } else if (body.password.length < minPasswordLengthRequirement || body.username.length < minUsernameLengthRequirement || body.name.length < minNameLengthRequirement || !body.email.contains('@')) {
+    } else if (body.password.length < minPasswordLengthRequirement || body.username.length < minUsernameLengthRequirement || body.name.length < minNameLengthRequirement || !body.email.includes('@')) {
         return res.status(400).send({ error: 'Length of username or password or name is invalid'})
     } else {
-        const checkingIfUserExists = User.findOne({ username: body.username })
+        const checkingIfUserExists = await User.findOne({ username: body.username })
         if (checkingIfUserExists !== null) {
             return res.status(400).send({ error: 'Username already found, please use another one'})
         }
@@ -41,9 +40,8 @@ router.post('/register', async (req, res) => {
 })
 
 //Function for logging in
-router.post('/login', async(req,res) => {
+router.post('/login', async( req,res) => {
     const body = req.body
-
     const userChecking = await User.findOne({ username: body.username })
 
     if (userChecking === undefined || body.password === undefined) {
@@ -64,3 +62,13 @@ router.post('/login', async(req,res) => {
         res.status(200).send({ token, username: userChecking.username, email: userChecking.email, name: userChecking.name })
     }
 })
+
+router.get('/login', (req, res) => {
+    res.send('Login yes')
+})
+
+router.get('/register', (req, res) => {
+    res.send('Register yes')
+})
+
+module.exports = router

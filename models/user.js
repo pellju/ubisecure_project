@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const mongooseValidator = require('mongoose-unique-validator')
 
 //Creating the user-type (username, name, password (hashed))
-const userSchema = mongoose.userSchema({
+const userSchema = mongoose.Schema({
     username: {
         type: String,
         required: true,
