@@ -1,7 +1,7 @@
 # ubisecure_project (backend)
 
 ## ToDo:
-- Parse the train locations (and other properties) with the train numbers
+- write checks to ensure that the values are correct (string, integer, ...)
 - documentation
 - testing login + registration
 - finalizing

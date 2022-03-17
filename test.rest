@@ -1,9 +1,9 @@
-POST http://localhost:3001/api/register
+PUT http://localhost:3001/trains/12/location
 Content-Type: application/json; charset=utf-8
 
 {
-    "username" : "testaaja1",
-    "name" : "testaaja",
-    "email" : "test@mail.test",
-    "password" : "123456"
+    "name" : "testijuna",
+    "destination" : "hellsinki",
+    "speed" : 200.0,
+    "coordinates" : [60.66, 25.55]
 }

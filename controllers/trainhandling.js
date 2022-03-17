@@ -1,17 +1,41 @@
-const axios = require('axios')
 const router = require('express').Router()
 
-//Getting train numbers from 
-router.get('/numbers', async (req, res) => {
-    let trainNumbers = []
-    //Getting trains which are on running currently and which are either long-distance trains or commuter trains.
-    //Unless this is done, there are a lot more trains than commuter ones and long-distance ones.
-    const response = await axios.get('https://rata.digitraffic.fi/api/v1/live-trains', {headers: {'Accept-encoding' : 'deflate, gzip;q=1.0, *;q=0.5'}})
-    const data = response.data
-    const trains = data.filter(train => (train.runningCurrently && (train.trainCategory === "Long-distance" || train.trainCategory === "Commuter")))
-    //const trains = data.filter(train => train.runningCurrently) //If wanted to get the all the trains which are on move
-    trains.forEach(train => trainNumbers.push(train.trainNumber))
-    res.send(trainNumbers)
+const trainData = []
+
+router.put('/:id/location', async (req, res) => {
+    const body = req.body
+
+    const id = req.params.id
+    const name = body.name
+    const destination = body.destination
+    const speed = body.speed
+    const coordinates = body.coordinates
+
+    if (!name || !destination || !speed || !coordinates ) {
+        return res.status(400).send({ error: 'Missing name, destination, speed or coordinates' })
+    }
+
+    const newTrain = {
+        id: id,
+        name: name,
+        destination: destination,
+        speed: speed,
+        coordinates: coordinates
+    }
+    
+    const wantedTrain = trainData.find(train => train.id === id)
+    if (wantedTrain) {
+        const replacebleIndex = trainData.indexOf(wantedTrain)
+        trainData[replacebleIndex] = newTrain
+    } else {
+        trainData.push(newTrain)
+    }
+
+    res.status(201).send(trainData)
+})
+
+router.get('/', (req, res) => {
+    res.send(trainData)
 })
 
 module.exports = router
