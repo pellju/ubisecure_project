@@ -49,7 +49,7 @@ userRouter.post('/login', async( req,res) => {
     //Checking if user exists
     const userChecking = userList.find(user => user.username === body.username)
     if (userChecking === undefined || body.password === undefined || body.password === '' || userChecking === null) {
-        return res.status(400).send({ error: 'Incorrect username or password' })
+        return res.status(401).send({ error: 'Incorrect username or password' })
     } else {
 
         //In case user exists, checking that password is correct
