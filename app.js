@@ -1,6 +1,5 @@
 //Importing basic requirements
 import express from 'express'
-import mongoose from 'mongoose'
 import cors from 'cors'
 import {} from 'dotenv/config'
 
@@ -14,11 +13,6 @@ import { trainRouter, getTrainData } from './controllers/trainhandling.js'
 
 //Creating the express-server, exported for index.js
 export const app = express()
-
-
-//Connecting to the MongoDB database (for user data)
-mongoose.connect(process.env.mongodbAddr).then(() => console.log('Connected to mongodb'))
-    .catch(e => console.log('Error: ', e))
 
 //Creating a websocket server and initializing the client list
 const wss = new WebSocketServer({ port: 8082 })
@@ -56,5 +50,5 @@ app.use('/api', userRouter)
 app.use('/trains', trainRouter)
 
 app.get('/', (req, res) => {
-    res.send('Hello world!')
+    res.send('Hello, and welcome to the backend!')
 })

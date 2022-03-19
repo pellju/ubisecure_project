@@ -14,26 +14,23 @@ export const getTrainData = () => trainData
 trainRouter.put('/:id/location', async (req, res) => {
     const body = req.body
 
+    //Getting train id and the details from the body
     const id = req.params.id
-    const name = body.name
-    const destination = body.destination
-    const speed = body.speed
-    const coordinates = body.coordinates
-    //const { name, destination, speed, coordinates } = body
+    const { name, destination, speed, coordinates } = body
 
     //Checking if name, destionation, speed and coordinates exist
     if (!name || !destination || !speed || !coordinates ) {
         return res.status(400).send({ error: 'Missing name, destination, speed or coordinates' })
     }
 
-    //Jonkinsortin tarkistus että valuet ovat ok pitäis tehdä
-    const newTrain = { //tästä vois jättää id: yms. pois ja laittaa vain id, name, ...
-        id: id,
-        name: name,
-        destination: destination,
-        speed: speed,
-        coordinates: coordinates
+    //Checking that values are ok: name = string, destination = string, speed = number, coordinates = number, size === 2
+    //Types are based on the example I recieved with the exercise
+    if (typeof name !== 'string' || typeof destination !== 'string' || typeof speed !== 'number' || typeof coordinates[0] !== 'number' || typeof coordinates[1] !== 'number' || coordinates.length !== 2) {
+        return res.status(400).send({ error: 'Incorrect types for values'})
     }
+    
+    //Creating a new train
+    const newTrain = { id, name, destination, speed, coordinates }
     
     //If train exists, updating it, if it does not exist, creating a new one
     const wantedTrain = trainData.find(train => train.id === id)
@@ -45,6 +42,7 @@ trainRouter.put('/:id/location', async (req, res) => {
     }
 
     //Returning the trainlist and broadcasting it using websocket
+    //Using stringfy because Websocket does not transfer arrays, strings only
     broadCast(JSON.stringify(trainData))
     res.status(201).send(trainData)
 })
