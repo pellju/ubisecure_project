@@ -1,9 +1,11 @@
-PUT http://localhost:3001/trains/12/location
+//File used for testing, requires REST Client addon for Visual Studio Code
+
+PUT http://localhost:3001/trains/136/location
 Content-Type: application/json; charset=utf-8
 
 {
-    "name" : "testijuna",
-    "destination" : "hellsinki",
-    "speed" : 200.0,
+    "name" : "Intercity 24",
+    "destination" : "Lappeenranta",
+    "speed" : 63.0,
     "coordinates" : [60.66, 25.55]
 }

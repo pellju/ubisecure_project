@@ -2,6 +2,5 @@
 
 ## ToDo:
 - write checks to ensure that the values are correct (string, integer, ...)
-- documentation
-- testing login + registration
+- testing login + registration, creating methods for database testing
 - finalizing

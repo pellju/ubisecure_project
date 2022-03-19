@@ -1,8 +1,8 @@
 //User-format
 
 //Importing mongodb-connections
-const mongoose = require('mongoose')
-const mongooseValidator = require('mongoose-unique-validator')
+import mongoose from 'mongoose'
+import mongooseValidator from 'mongoose-unique-validator'
 
 //Creating the user-type (username, name, password (hashed))
 const userSchema = mongoose.Schema({
@@ -29,6 +29,4 @@ userSchema.set('toJSON', {
 })
 
 userSchema.plugin(mongooseValidator)
-const User = mongoose.model('User', userSchema)
-
-module.exports = User
+export const User = mongoose.model('User', userSchema)
