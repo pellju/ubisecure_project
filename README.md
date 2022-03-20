@@ -24,6 +24,7 @@ The body used for train is following:
     speed: 100,
     coordinates: [60, 21]
 }`
+
 Note that the type of *name* and *destination* has to be **string**, the type of *speed* has to be **integer** and the type of *coordinates* has to be number-Array, whose length is 2.
 If incorrect values are used, the backend will return error code *400*.
 
@@ -35,14 +36,15 @@ The body used for registration is following:
     email: 'test@user.com',
     password: '123456'
 }`
+
 If incorrect values are used, the backend will return error code *400*.
 
 5.) Login is meant to be done through frontend, but is possible through backend, too. Users can login by `HTTP POST`-request, which is sent to `http://localhost:3001/api/login`. The body used is following:
 `{
     username: 'test-user',
     password: '123456'
-
 }`
+
 If incorrect username or password is used, it will result as error-code *401*.
 
 ### Testing
